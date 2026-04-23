@@ -10,8 +10,9 @@ def sign_up():
     op=int(input("Option: "))
     if op==1:
         print()
-        print("*"*5,"WELCOME","*"*5)
+        print("*"*5,"WELCOME as Passenger","*"*5)
         nm=input("Your Name: ")
+        print()
         print("Choose your current location: ")
         for location in Pathao.list_places:
             print(location)
@@ -22,8 +23,9 @@ def sign_up():
         return p
     else:
         print()
-        print("*"*5,"WELCOME","*"*5)
+        print("*"*5,"WELCOME as Driver","*"*5)
         nm=input("Your Name: ")
+        print()
         print("Choose your current location: ")
         for location in Pathao.list_places:
             print(location)
@@ -44,6 +46,7 @@ def sign_up():
 
 
 def login():
+    print()
     print("Login as:\n1.Passenger\n2.Driver")
     option=input("option: ")
     if option=="1":
@@ -81,6 +84,7 @@ def login():
 
 
 def book_ride(user):
+    print()
     print("Choose destination: ")
     for location in Pathao.list_places:
         if user.curr_loc!=location:
@@ -99,9 +103,10 @@ def book_ride(user):
 
 def  passenger_options(user):
     while True:
+        print(f"******** Welcome {user.name} ********")
         print(f"Your Location: {user.curr_loc}")
         print("Choose Options: ")
-        if user.ride==None:
+        if user.ride==None and user.ride_requested==False:
             print("1.Request a ride")
             print("2.Logout")
             option=int(input("Option: "))
@@ -109,11 +114,31 @@ def  passenger_options(user):
                 book_ride(user)
             else:
                 break
+        elif user.ride_requested==True:
+            print()
+            print(" ******** Ride Requested ********")
+            print("1.Logout")
+            option=input("Option: ")
+            if option=="1":
+                break
         else:
-            print("1.Stop current ride")
-            print("2.Logout")
+            print()
+            print("******** Ride Started *******")
+            print()
+            print("1.Show ride details")
+            print("2.Stop current ride")
+            print("3.Logout")
             option=int(input("Option: "))
             if option==1:
+                print()
+                print("******** Ride Details ********")
+                print("--------------------------------")
+                print(f"From: {user.curr_loc}")
+                print(f"To: {user.destination}")
+                print(f"Fare: {user.ride.fare}")
+                print(f"Driver: {user.ride.driver.name}")
+                print()
+            elif option==2:
                 user.end_ride(user.ride)
             else:
                 break
@@ -121,6 +146,7 @@ def  passenger_options(user):
 
 def driver_options(user):
     while True:
+        print(f"******** Welcome {user.name} ********")
         print(f"Your Location: {user.curr_loc}")
         print("Choose options: ")
         if user.in_active_ride:
@@ -151,6 +177,7 @@ def driver_options(user):
 
 while True:
     user=None
+    print()
     print("*"*8,"Welcome to Pathao","*"*8)
     print("Choose the option: \n1. Sign up\n2. Login")
     option=input("Option: ")

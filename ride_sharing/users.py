@@ -16,12 +16,14 @@ class Passenger(User):
         super().__init__(name, curr_loc, mail, password)
         self.matched_driver_list=[]
         self.ride=None
+        self.ride_requested=False
         Pathao.add_passenger(self)
 
     
     def ride_request(self,destination,vehicle):
         self.destination=destination
         self.vehicle_type=vehicle
+        self.ride_requested=True
         Operations.ride_match(self)
     
     def end_ride(self,ride):

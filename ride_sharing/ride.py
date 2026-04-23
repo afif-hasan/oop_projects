@@ -15,6 +15,7 @@ class Ride:
         print()
         print("*"*8,"Ride Started","*"*8)
         print()
+        self.passenger.ride_requested=False
         self.driver.in_active_ride=True
         self.passenger.ride=self
         self.driver.ride_requests.clear()

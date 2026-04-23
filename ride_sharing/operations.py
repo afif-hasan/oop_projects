@@ -11,13 +11,17 @@ class Operations:
             print()
             print(" No driver to show !!!")
             print()
+            passenger.ride_requested=False
         else:
             for driver in Pathao.list_drivers:
                 if (driver.curr_loc==passenger.curr_loc) and (driver.in_active_ride==False) and (driver.vehicle.type==passenger.vehicle_type):
                     passenger.matched_driver_list.append(driver)
         
             if len(passenger.matched_driver_list)==0:
-                print("No driver matched !!!")
+                print()
+                print(" No driver to show !!!")
+                print()
+                passenger.ride_requested=False
             else: 
                 fare=Operations.calculate_fare(passenger.curr_loc,passenger.destination)
                 print("Here are the ride options: ")
